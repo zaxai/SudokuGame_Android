@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="long_click_entries">
+        <item>清除</item>
+        <item>清空</item>
+    </string-array>
+
+    <string-array name="long_click_values">
+        <item>empty</item>
+        <item>clear</item>
+    </string-array>
+
+</resources>

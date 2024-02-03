@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/settings_display_header">
+
+        <SwitchPreferenceCompat
+            app:key="highlight"
+            app:title="@string/settings_highlight_title"
+            app:defaultValue="true"
+            app:summary="@string/settings_highlight_summary"/>
+
+        <SwitchPreferenceCompat
+            app:key="count"
+            app:title="@string/settings_count_title"
+            app:defaultValue="false"
+            app:summary="@string/settings_count_summary"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/settings_operation_header">
+
+        <ListPreference
+            app:key="long_click"
+            app:title="@string/settings_long_click_title"
+            app:defaultValue="empty"
+            app:entries="@array/long_click_entries"
+            app:entryValues="@array/long_click_values"
+            app:useSimpleSummaryProvider="true"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

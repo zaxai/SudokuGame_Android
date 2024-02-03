@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/drawable-night/ic_back_orange.xml" value="0.143" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/drawable-night/ic_back_primary.xml" value="0.2985" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2985" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/drawable/ic_about.xml" value="0.294" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/drawable/ic_back.xml" value="0.2985" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/drawable/ic_back_primary.xml" value="0.2985" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/drawable/ic_calc.xml" value="0.2985" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/drawable/ic_divider.xml" value="0.2985" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/drawable/ic_grid_divide.xml" value="0.2985" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/drawable/ic_grid_divider.xml" value="0.2985" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2985" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.14" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/drawable/ic_recycler_divide.xml" value="0.2985" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/drawable/ic_turn.xml" value="0.2985" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/drawable/img_logo.xml" value="0.2985" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/layout-land/activity_about.xml" value="0.3099647266313933" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/layout-land/fragment_sudoku.xml" value="0.3099647266313933" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/layout-land/sudoku_item.xml" value="0.3099647266313933" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/layout/activity_about.xml" value="0.358695652173913" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/layout/activity_introduce.xml" value="0.358695652173913" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/layout/activity_settings.xml" value="0.3509963768115942" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/layout/activity_splash.xml" value="0.358695652173913" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/layout/fragment_numkeyboard.xml" value="0.14722222222222223" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/layout/fragment_sudoku.xml" value="0.33" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/layout/numkeyboard_item.xml" value="0.14722222222222223" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/layout/sudoku_item.xml" value="0.14722222222222223" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2985" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2985" />
+        <entry key="..\:/AS/AndroidStudioProjects/SudokuGame/app/src/main/res/xml/root_preferences.xml" value="0.27049180327868855" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

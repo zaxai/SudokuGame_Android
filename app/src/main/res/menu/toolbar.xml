@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/helpBtn"
+        android:icon="@drawable/ic_help"
+        android:title="@string/main_help"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/photoBtn"
+        android:icon="@drawable/ic_photo"
+        android:title="@string/main_photo"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/albumBtn"
+        android:icon="@drawable/ic_album"
+        android:title="@string/main_album"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/settingsBtn"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/main_settings"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/aboutBtn"
+        android:icon="@drawable/ic_about"
+        android:title="@string/main_about"
+        app:showAsAction="never"/>
+
+</menu>

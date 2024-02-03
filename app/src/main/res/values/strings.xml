@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">SudokuGame</string>
+    <string name="app_full_name">Sudoku Game</string>
+    <string name="app_version">Version 1.0.0</string>
+    <string name="splash_logo_description">Logo</string>
+    <string name="main_title">数独</string>
+    <string name="main_backup">标记起始</string>
+    <string name="main_restore">恢复起始</string>
+    <string name="main_empty">清除</string>
+    <string name="main_clear">清空</string>
+    <string name="main_lock">锁定</string>
+    <string name="main_unlock">解锁</string>
+    <string name="main_calc">计算</string>
+    <string name="main_stop">停止</string>
+    <string name="main_help">帮助</string>
+    <string name="main_photo">拍照识别</string>
+    <string name="main_album">相册导入</string>
+    <string name="main_settings">设置</string>
+    <string name="main_about">关于</string>
+    <string name="settings_title">设置</string>
+    <string name="settings_display_header">显示设置</string>
+    <string name="settings_highlight_title">高亮</string>
+    <string name="settings_highlight_summary">高亮显示相同数字</string>
+    <string name="settings_count_title">计数</string>
+    <string name="settings_count_summary">进度条显示计算次数</string>
+    <string name="settings_operation_header">操作设置</string>
+    <string name="settings_long_click_title">长按</string>
+    <string name="about_back_description">Back</string>
+    <string name="about_logo_description">Logo</string>
+    <string name="about_introduce">功能介绍</string>
+    <string name="about_update">版本更新</string>
+    <string name="about_copyright">最赛网 版权所有</string>
+    <string name="about_reserved">Copyright © Since 2009 Zaxai.Com All Rights Reserved</string>
+    <string name="introduce_title">功能介绍</string>
+    <string name="introduce_text">
+        \n 标记起始：记录当前数独\n\n
+        恢复起始：恢复上次标记的数独\n\n
+        锁定：锁定当前非空数字，锁定后无法更改、清除和清空\n\n
+        解锁：解锁上次锁定的数字\n\n
+        清除：清除当前选中的数字\n\n
+        清空：清除所有非锁定的数字
+    </string>
+</resources>
