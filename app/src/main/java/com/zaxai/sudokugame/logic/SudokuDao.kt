@@ -34,22 +34,22 @@ class SudokuDao(private val context: Context) {
     }
 
     fun saveItemList(itemList: List<SudokuItem>){
-        val itemNameList=ArrayList<String>()
+        val itemNumList=ArrayList<String>()
         for (item in itemList){
-            itemNameList.add(item.number)
+            itemNumList.add(item.number)
         }
         sharedPreferences().edit {
-            putString(sudokuItemKey, Gson().toJson(itemNameList))
+            putString(sudokuItemKey, Gson().toJson(itemNumList))
         }
     }
 
     fun syncItemList(itemList: List<SudokuItem>){
         val itemString=sharedPreferences().getString(sudokuItemKey,"")
         if(itemString!=null&&itemString.isNotEmpty()) {
-            val itemNameList = Gson().fromJson<ArrayList<String>>(itemString,object:TypeToken<ArrayList<String>>(){}.type)
-            if(itemNameList.size==itemList.size) {
+            val itemNumList = Gson().fromJson<ArrayList<String>>(itemString,object:TypeToken<ArrayList<String>>(){}.type)
+            if(itemNumList.size==itemList.size) {
                 for (i in itemList.indices) {
-                    itemList[i].number = itemNameList[i]
+                    itemList[i].number = itemNumList[i]
                     itemList[i].lock=false
                 }
             }

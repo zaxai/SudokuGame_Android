@@ -44,10 +44,10 @@ class SudokuFragment:Fragment() {
         val calcCountText:TextView=view.findViewById(R.id.calcCountText)
         val backupBtn:Button=view.findViewById(R.id.backupBtn)
         val restoreBtn:Button=view.findViewById(R.id.restoreBtn)
-        val emptyBtn:Button=view.findViewById(R.id.emptyBtn)
-        val clearBtn:Button=view.findViewById(R.id.clearBtn)
         val lockBtn:Button=view.findViewById(R.id.lockBtn)
         val unlockBtn:Button=view.findViewById(R.id.unlockBtn)
+        val emptyBtn:Button=view.findViewById(R.id.emptyBtn)
+        val clearBtn:Button=view.findViewById(R.id.clearBtn)
         val calcBtn:FloatingActionButton=view.findViewById(R.id.calcBtn)
         setHasOptionsMenu(true)
         (activity as MainActivity).setSupportActionBar(toolbar)
@@ -122,12 +122,6 @@ class SudokuFragment:Fragment() {
             adapter.notifyItemRangeChanged(0, Sudoku.SUDOKU_TOTAL_SIZE)
             Toast.makeText(context,"已恢复起始",Toast.LENGTH_SHORT).show()
         }
-        emptyBtn.setOnClickListener {
-            empty()
-        }
-        clearBtn.setOnClickListener {
-            clear(view)
-        }
         lockBtn.setOnClickListener {
             viewModel.sudokuItemLock(){
                 for (i in it) {
@@ -141,6 +135,12 @@ class SudokuFragment:Fragment() {
                     adapter.notifyItemChanged(i)
                 }
             }
+        }
+        emptyBtn.setOnClickListener {
+            empty()
+        }
+        clearBtn.setOnClickListener {
+            clear(view)
         }
         calcBtn.setOnClickListener {
             if(!viewModel.isCalculating) {

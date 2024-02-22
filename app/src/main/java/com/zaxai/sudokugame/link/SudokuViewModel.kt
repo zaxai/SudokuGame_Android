@@ -76,6 +76,16 @@ class SudokuViewModel:ViewModel() {
         block(sudoku.setItem(position,number))
     }
 
+    fun isSudokuItemLocked(position: Int)=sudoku.isItemLocked(position)
+
+    fun sudokuItemLock(block:(posNotifyList:List<Int>)->Unit){
+        block(sudoku.itemLock())
+    }
+
+    fun sudokuItemUnlock(block:(posNotifyList:List<Int>)->Unit){
+        block(sudoku.itemUnlock())
+    }
+
     fun sudokuItemSelEmpty(block:(posNotifyList:List<Int>)->Unit){
         block(sudoku.itemSelEmpty())
     }
@@ -87,15 +97,5 @@ class SudokuViewModel:ViewModel() {
 
     fun sudokuItemRecovery(){
         sudoku.itemListRecovery()
-    }
-
-    fun isSudokuItemLocked(position: Int)=sudoku.isItemLocked(position)
-
-    fun sudokuItemLock(block:(posNotifyList:List<Int>)->Unit){
-        block(sudoku.itemLock())
-    }
-
-    fun sudokuItemUnlock(block:(posNotifyList:List<Int>)->Unit){
-        block(sudoku.itemUnlock())
     }
 }

@@ -441,6 +441,30 @@ data class Sudoku(val itemList: List<SudokuItem>){
         return posNotifyList
     }
 
+    fun isItemLocked(position: Int)=itemList[position].lock
+
+    fun itemLock():List<Int>{
+        val posNotifyList=ArrayList<Int>()
+        for (i in itemList.indices){
+            if(itemList[i].number.isNotEmpty()&&!itemList[i].lock){
+                itemList[i].lock=true
+                posNotifyList.add(i)
+            }
+        }
+        return posNotifyList
+    }
+
+    fun itemUnlock():List<Int>{
+        val posNotifyList=ArrayList<Int>()
+        for (i in itemList.indices){
+            if(itemList[i].lock){
+                itemList[i].lock=false
+                posNotifyList.add(i)
+            }
+        }
+        return posNotifyList
+    }
+
     fun itemSelEmpty():List<Int>{
         val posNotifyList=ArrayList<Int>()
         if(!itemList[posSel].lock&&itemList[posSel].number.isNotEmpty()) {
@@ -467,30 +491,6 @@ data class Sudoku(val itemList: List<SudokuItem>){
                 itemList[i].number=""
                 posNotifyList.add(i)
             }else if(itemList[i].lock&&!itemSel.lock&&itemList[i]==itemSel&&needNotifySameNumber) {
-                posNotifyList.add(i)
-            }
-        }
-        return posNotifyList
-    }
-
-    fun isItemLocked(position: Int)=itemList[position].lock
-
-    fun itemLock():List<Int>{
-        val posNotifyList=ArrayList<Int>()
-        for (i in itemList.indices){
-            if(itemList[i].number.isNotEmpty()){
-                itemList[i].lock=true
-                posNotifyList.add(i)
-            }
-        }
-        return posNotifyList
-    }
-
-    fun itemUnlock():List<Int>{
-        val posNotifyList=ArrayList<Int>()
-        for (i in itemList.indices){
-            if(itemList[i].lock){
-                itemList[i].lock=false
                 posNotifyList.add(i)
             }
         }
