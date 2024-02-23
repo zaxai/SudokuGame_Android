@@ -48,6 +48,8 @@ class SudokuFragment:Fragment() {
         val unlockBtn:Button=view.findViewById(R.id.unlockBtn)
         val emptyBtn:Button=view.findViewById(R.id.emptyBtn)
         val clearBtn:Button=view.findViewById(R.id.clearBtn)
+        val checkBtn:Button=view.findViewById(R.id.checkBtn)
+        val candidateBtn:Button=view.findViewById(R.id.candidateBtn)
         val calcBtn:FloatingActionButton=view.findViewById(R.id.calcBtn)
         setHasOptionsMenu(true)
         (activity as MainActivity).setSupportActionBar(toolbar)
@@ -106,7 +108,7 @@ class SudokuFragment:Fragment() {
         viewModel.calcResult.observe(viewLifecycleOwner){
             if(viewModel.isCalculating) {
                 if (it) {
-                    viewModel.endAutoCalc()
+                    viewModel.endSudokuAutoCalc()
                     adapter.notifyItemRangeChanged(0, Sudoku.SUDOKU_TOTAL_SIZE)
                 }
                 setViewOnEndCalc(view)
@@ -123,14 +125,14 @@ class SudokuFragment:Fragment() {
             Toast.makeText(context,"已恢复起始",Toast.LENGTH_SHORT).show()
         }
         lockBtn.setOnClickListener {
-            viewModel.sudokuItemLock(){
+            viewModel.sudokuItemLock {
                 for (i in it) {
                     adapter.notifyItemChanged(i)
                 }
             }
         }
         unlockBtn.setOnClickListener {
-            viewModel.sudokuItemUnlock(){
+            viewModel.sudokuItemUnlock {
                 for (i in it) {
                     adapter.notifyItemChanged(i)
                 }
@@ -142,17 +144,23 @@ class SudokuFragment:Fragment() {
         clearBtn.setOnClickListener {
             clear(view)
         }
+        checkBtn.setOnClickListener {
+            viewModel.sudokuRuleCheck()
+            Toast.makeText(context,getRuleErrorInfo(),Toast.LENGTH_LONG).show()
+        }
+        candidateBtn.setOnClickListener {
+        }
         calcBtn.setOnClickListener {
             if(!viewModel.isCalculating) {
-                if (viewModel.startAutoCalc()) {
+                if (viewModel.startSudokuAutoCalc()) {
                     setViewOnStartCalc(view)
                     viewModel.isCalculating=true
                 } else {
-                    Snackbar.make(view,"单行、单列或九宫格存在重复数字",Snackbar.LENGTH_SHORT).show()
+                    Toast.makeText(context,getRuleErrorInfo(),Toast.LENGTH_LONG).show()
                 }
             }else{
-                viewModel.stopAutoCalc()
-                Snackbar.make(view, "已停止计算", Snackbar.LENGTH_SHORT).show()
+                viewModel.stopSudokuAutoCalc()
+                Toast.makeText(context,"已停止计算",Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -161,7 +169,7 @@ class SudokuFragment:Fragment() {
         super.onDestroyView()
         if(viewModel.isCalculating) {
             viewModel.isCalculating = false
-            viewModel.stopAutoCalc()
+            viewModel.stopSudokuAutoCalc()
         }
     }
 
@@ -195,7 +203,7 @@ class SudokuFragment:Fragment() {
     }
 
     private fun empty(){
-        viewModel.sudokuItemSelEmpty(){
+        viewModel.sudokuItemSelEmpty {
             for (i in it) {
                 adapter.notifyItemChanged(i)
             }
@@ -203,7 +211,7 @@ class SudokuFragment:Fragment() {
     }
 
     private fun clear(view: View){
-        viewModel.sudokuItemClear(){posNotifyList->
+        viewModel.sudokuItemClear { posNotifyList->
             for (i in posNotifyList) {
                 adapter.notifyItemChanged(i)
             }
@@ -215,6 +223,16 @@ class SudokuFragment:Fragment() {
                     }
                 }.show()
             }
+        }
+    }
+
+    private fun getRuleErrorInfo():String{
+        val ruleErrorInfo=viewModel.getSudokuLastRuleError()
+        return when(ruleErrorInfo.type){
+            Sudoku.RuleErrorType.RULE_ERR_NONE->"检查成功"
+            Sudoku.RuleErrorType.RULE_ERR_ROW->"第${ruleErrorInfo.index+1}行存在多个数字\"${ruleErrorInfo.number}\""
+            Sudoku.RuleErrorType.RULE_ERR_COLUMN->"第${ruleErrorInfo.index+1}列存在多个数字\"${ruleErrorInfo.number}\""
+            Sudoku.RuleErrorType.RULE_ERR_BLOCK->"第${ruleErrorInfo.index+1}宫存在多个数字\"${ruleErrorInfo.number}\""
         }
     }
 

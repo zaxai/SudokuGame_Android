@@ -15,6 +15,7 @@ data class Sudoku(val itemList: List<SudokuItem>){
     private var autoCalcRun=false
     private var autoCalcThread= thread {  }
     private var itemNumberBackupList=ArrayList<String>()
+    private var ruleErrorInfo=RuleErrorInfo(RuleErrorType.RULE_ERR_NONE,0,0)
 
     enum class Direction{
         DIR_ROW,DIR_COLUMN
@@ -32,11 +33,17 @@ data class Sudoku(val itemList: List<SudokuItem>){
         BLOCK_9(8);
 
         companion object {
-            fun fromInt(index:Int)=Block.values().first{
+            fun fromInt(index:Int)=values().first{
                 it.index==index
             }
         }
     }
+
+    enum class RuleErrorType{
+        RULE_ERR_NONE,RULE_ERR_ROW,RULE_ERR_COLUMN,RULE_ERR_BLOCK
+    }
+
+    class RuleErrorInfo(val type:RuleErrorType,val index:Int,val number:Int)
 
     companion object{
         const val SUDOKU_SIZE=9
@@ -324,18 +331,24 @@ data class Sudoku(val itemList: List<SudokuItem>){
         for(num in 1..9){
             for (i in 0 until SUDOKU_SIZE){
                 if(getNumCount(num,Direction.DIR_ROW,i)>1){
+                    ruleErrorInfo= RuleErrorInfo(RuleErrorType.RULE_ERR_ROW,i,num)
                     return false
                 }
                 if(getNumCount(num,Direction.DIR_COLUMN,i)>1){
+                    ruleErrorInfo= RuleErrorInfo(RuleErrorType.RULE_ERR_COLUMN,i,num)
                     return false
                 }
                 if(getNumCount(num, getBlock(i))>1) {
+                    ruleErrorInfo= RuleErrorInfo(RuleErrorType.RULE_ERR_BLOCK,i,num)
                     return false
                 }
             }
         }
+        ruleErrorInfo= RuleErrorInfo(RuleErrorType.RULE_ERR_NONE,0,0)
         return true
     }
+
+    fun getLastRuleError()=ruleErrorInfo
 
     fun basicCalc(){
         while (total< SUDOKU_TOTAL_SIZE){

@@ -6,10 +6,12 @@
     <string name="main_title">数独</string>
     <string name="main_backup">标记起始</string>
     <string name="main_restore">恢复起始</string>
-    <string name="main_empty">清除</string>
-    <string name="main_clear">清空</string>
     <string name="main_lock">锁定</string>
     <string name="main_unlock">解锁</string>
+    <string name="main_empty">清除</string>
+    <string name="main_clear">清空</string>
+    <string name="main_check">规则检查</string>
+    <string name="main_candidate">刷新候选</string>
     <string name="main_calc">计算</string>
     <string name="main_stop">停止</string>
     <string name="main_help">帮助</string>

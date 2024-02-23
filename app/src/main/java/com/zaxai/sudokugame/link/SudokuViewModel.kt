@@ -49,7 +49,7 @@ class SudokuViewModel:ViewModel() {
 
     fun syncSudokuItemList(context: Context)=SudokuDao(context).syncItemList(sudoku.itemList)
 
-    fun startAutoCalc():Boolean{
+    fun startSudokuAutoCalc():Boolean{
         sudoku.setDataFromItem()
         val check=sudoku.ruleCheck()
         if(check){
@@ -58,13 +58,9 @@ class SudokuViewModel:ViewModel() {
         return check
     }
 
-    fun endAutoCalc(){
-        sudoku.setItemFromData()
-    }
+    fun endSudokuAutoCalc()=sudoku.setItemFromData()
 
-    fun stopAutoCalc(){
-        sudoku.stopAutoCalc()
-    }
+    fun stopSudokuAutoCalc()=sudoku.stopAutoCalc()
 
     fun getSudokuSameNumberPosList(isIncludePosSel:Boolean=false)=sudoku.getSameNumberPosList(isIncludePosSel)
 
@@ -98,4 +94,11 @@ class SudokuViewModel:ViewModel() {
     fun sudokuItemRecovery(){
         sudoku.itemListRecovery()
     }
+
+    fun sudokuRuleCheck():Boolean{
+        sudoku.setDataFromItem()
+        return sudoku.ruleCheck()
+    }
+
+    fun getSudokuLastRuleError()=sudoku.getLastRuleError()
 }

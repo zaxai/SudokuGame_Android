@@ -88,6 +88,16 @@
                 android:text="@string/main_empty"
                 android:layout_marginBottom="5dp"
                 app:layout_constraintStart_toEndOf="@id/lockBtn"
+                app:layout_constraintEnd_toStartOf="@id/checkBtn"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <Button
+                android:id="@+id/checkBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_check"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintStart_toEndOf="@id/emptyBtn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
@@ -114,6 +124,14 @@
                 android:text="@string/main_clear"
                 app:layout_constraintStart_toStartOf="@id/emptyBtn"
                 app:layout_constraintTop_toBottomOf="@id/emptyBtn"/>
+
+            <Button
+                android:id="@+id/candidateBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_candidate"
+                app:layout_constraintStart_toStartOf="@id/checkBtn"
+                app:layout_constraintTop_toBottomOf="@id/checkBtn"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
