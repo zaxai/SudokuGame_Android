@@ -1,7 +1,7 @@
 package com.zaxai.sudokugame.ui
 
+import android.content.Context
 import android.content.res.Configuration
-import android.content.res.Configuration.UI_MODE_NIGHT_MASK
 import android.graphics.Paint
 import android.graphics.Rect
 import android.util.TypedValue
@@ -13,7 +13,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.zaxai.sudokugame.R
 import com.zaxai.sudokugame.logic.Sudoku
-import java.math.BigInteger
 
 class SudokuAdapter(private val fragment: SudokuFragment,private val sudoku: Sudoku):
     RecyclerView.Adapter<SudokuAdapter.ViewHolder>(){
@@ -53,6 +52,19 @@ class SudokuAdapter(private val fragment: SudokuFragment,private val sudoku: Sud
         val itemSel=sudoku.itemList[sudoku.posSel]
         holder.sudokuItemText.text=item.number
         fragment.context?.apply {
+            if(item.number.length==1){
+                if(resources.configuration.orientation==Configuration.ORIENTATION_PORTRAIT){
+                    holder.sudokuItemText.textSize=30.0F
+                }else {
+                    holder.sudokuItemText.textSize=25.0F
+                }
+            }else{
+                if(resources.configuration.orientation==Configuration.ORIENTATION_PORTRAIT){
+                    holder.sudokuItemText.textSize=10.0F
+                }else {
+                    holder.sudokuItemText.textSize=8.0F
+                }
+            }
             if(item.lock){
                 holder.sudokuItemText.setTextColor(ContextCompat.getColor(this,R.color.dark_grey))
             }else {
@@ -60,17 +72,11 @@ class SudokuAdapter(private val fragment: SudokuFragment,private val sudoku: Sud
             }
             if(position==sudoku.posSel){
                 holder.sudokuItemText.paintFlags=holder.sudokuItemText.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-                val typedValue= TypedValue()
-                if(theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary,typedValue,true)) {
-                    holder.sudokuItemText.setBackgroundColor(typedValue.data)
-                }
+                holder.sudokuItemText.setBackgroundColor(getColorFromResource(this,androidx.appcompat.R.attr.colorPrimary))
             }else{
                 holder.sudokuItemText.paintFlags=holder.sudokuItemText.paintFlags and Paint.UNDERLINE_TEXT_FLAG.inv()
                 if(sudoku.needNotifySameNumber&&item==itemSel&&item.number.isNotEmpty()){
-                    val typedValue= TypedValue()
-                    if(theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary,typedValue,true)) {
-                        holder.sudokuItemText.setBackgroundColor(typedValue.data)
-                    }
+                    holder.sudokuItemText.setBackgroundColor(getColorFromResource(this,androidx.appcompat.R.attr.colorPrimary))
                 }else {
                     holder.sudokuItemText.setBackgroundResource(item.textBackgroundColorId)
                 }
@@ -86,5 +92,14 @@ class SudokuAdapter(private val fragment: SudokuFragment,private val sudoku: Sud
 
     fun setOnRecyclerItemLongClickListener(l:(position:Int)->Boolean){
         onRecyclerItemLongClickListener=l
+    }
+
+    private fun getColorFromResource(context: Context,resId:Int):Int{
+        var color=0
+        val typedValue= TypedValue()
+        if(context.theme.resolveAttribute(resId,typedValue,true)){
+            color=typedValue.data
+        }
+        return color
     }
 }

@@ -101,4 +101,9 @@ class SudokuViewModel:ViewModel() {
     }
 
     fun getSudokuLastRuleError()=sudoku.getLastRuleError()
+
+    fun sudokuItemCandidate(block:(posNotifyList:List<Int>)->Unit){
+        sudoku.setDataFromItem()
+        block(sudoku.itemCandidate())
+    }
 }

@@ -298,7 +298,7 @@ data class Sudoku(val itemList: List<SudokuItem>){
     fun setDataFromItem(){
         total=0
         for (i in 0 until SUDOKU_TOTAL_SIZE){
-            if(itemList[i].number.isNotEmpty()) {
+            if(itemList[i].number.length==1) {
                 dataList2[i / SUDOKU_SIZE][i % SUDOKU_SIZE] = itemList[i].number.toInt()
                 total++
             }else{
@@ -459,7 +459,7 @@ data class Sudoku(val itemList: List<SudokuItem>){
     fun itemLock():List<Int>{
         val posNotifyList=ArrayList<Int>()
         for (i in itemList.indices){
-            if(itemList[i].number.isNotEmpty()&&!itemList[i].lock){
+            if(itemList[i].number.length==1&&!itemList[i].lock){
                 itemList[i].lock=true
                 posNotifyList.add(i)
             }
@@ -505,6 +505,49 @@ data class Sudoku(val itemList: List<SudokuItem>){
                 posNotifyList.add(i)
             }else if(itemList[i].lock&&!itemSel.lock&&itemList[i]==itemSel&&needNotifySameNumber) {
                 posNotifyList.add(i)
+            }
+        }
+        return posNotifyList
+    }
+
+    fun itemCandidate():List<Int>{
+        val posNotifyList=ArrayList<Int>()
+        val itemSelOld=SudokuItem(itemList[posSel].number)
+        for (i in itemList.indices){
+            val x=i/ SUDOKU_SIZE
+            val y=i% SUDOKU_SIZE
+            if(dataList2[x][y]==0) {
+                val numList = ArrayList<Int>()
+                getCandidateNum(x, y, numList)
+                var number=""
+                if(numList.isNotEmpty()){
+                    for(num in 1..9){
+                        number += if(numList.contains(num)){
+                            num.toString()
+                        }else{
+                            " "
+                        }
+                        when(num){
+                            1,2,4,5,7,8->number+=" "
+                            3,6->number+="\n"
+                        }
+                    }
+                }
+                if(itemList[i].number!=number){
+                    itemList[i].number=number
+                    posNotifyList.add(i)
+                }
+            }
+        }
+        val itemSel=itemList[posSel]
+        if(needNotifySameNumber&&itemSelOld!=itemSel){
+            for (i in itemList.indices){
+                if(itemSelOld.number.isNotEmpty()&&itemList[i]==itemSelOld&&!posNotifyList.contains(i)){
+                    posNotifyList.add(i)
+                }
+                if(itemSel.number.isNotEmpty()&&itemList[i]==itemSel&&!posNotifyList.contains(i)){
+                    posNotifyList.add(i)
+                }
             }
         }
         return posNotifyList

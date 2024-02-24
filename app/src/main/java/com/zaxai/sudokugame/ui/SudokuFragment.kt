@@ -149,6 +149,11 @@ class SudokuFragment:Fragment() {
             Toast.makeText(context,getRuleErrorInfo(),Toast.LENGTH_LONG).show()
         }
         candidateBtn.setOnClickListener {
+            viewModel.sudokuItemCandidate {
+                for (i in it) {
+                    adapter.notifyItemChanged(i)
+                }
+            }
         }
         calcBtn.setOnClickListener {
             if(!viewModel.isCalculating) {
