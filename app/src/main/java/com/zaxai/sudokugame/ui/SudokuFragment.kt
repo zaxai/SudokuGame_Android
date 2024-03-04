@@ -145,23 +145,36 @@ class SudokuFragment:Fragment() {
             clear(view)
         }
         checkBtn.setOnClickListener {
-            viewModel.sudokuRuleCheck()
-            Toast.makeText(context,getRuleErrorInfo(),Toast.LENGTH_LONG).show()
+            if(viewModel.isCalculating){
+                Toast.makeText(context,"正在计算中，请等待完成或停止后重试",Toast.LENGTH_SHORT).show()
+            }else {
+                viewModel.sudokuRuleCheck()
+                Toast.makeText(context, getRuleErrorInfo(), Toast.LENGTH_SHORT).show()
+            }
         }
         candidateBtn.setOnClickListener {
-            viewModel.sudokuItemCandidate {
-                for (i in it) {
-                    adapter.notifyItemChanged(i)
+            if(viewModel.isCalculating){
+                Toast.makeText(context,"正在计算中，请等待完成或停止后重试",Toast.LENGTH_SHORT).show()
+            }else {
+                if(viewModel.sudokuRuleCheck()) {
+                    viewModel.sudokuItemCandidate {
+                        for (i in it) {
+                            adapter.notifyItemChanged(i)
+                        }
+                    }
+                }else{
+                    Toast.makeText(context,getRuleErrorInfo(),Toast.LENGTH_SHORT).show()
                 }
             }
         }
         calcBtn.setOnClickListener {
             if(!viewModel.isCalculating) {
-                if (viewModel.startSudokuAutoCalc()) {
+                if (viewModel.sudokuRuleCheck()) {
+                    viewModel.startSudokuAutoCalc()
                     setViewOnStartCalc(view)
                     viewModel.isCalculating=true
                 } else {
-                    Toast.makeText(context,getRuleErrorInfo(),Toast.LENGTH_LONG).show()
+                    Toast.makeText(context,getRuleErrorInfo(),Toast.LENGTH_SHORT).show()
                 }
             }else{
                 viewModel.stopSudokuAutoCalc()
@@ -234,7 +247,7 @@ class SudokuFragment:Fragment() {
     private fun getRuleErrorInfo():String{
         val ruleErrorInfo=viewModel.getSudokuLastRuleError()
         return when(ruleErrorInfo.type){
-            Sudoku.RuleErrorType.RULE_ERR_NONE->"检查成功"
+            Sudoku.RuleErrorType.RULE_ERR_NONE->"检查成功，已确认：${viewModel.getSudokuConfirmedCount()}个，未确认：${viewModel.getSudokuUnconfirmedCount()}个"
             Sudoku.RuleErrorType.RULE_ERR_ROW->"第${ruleErrorInfo.index+1}行存在多个数字\"${ruleErrorInfo.number}\""
             Sudoku.RuleErrorType.RULE_ERR_COLUMN->"第${ruleErrorInfo.index+1}列存在多个数字\"${ruleErrorInfo.number}\""
             Sudoku.RuleErrorType.RULE_ERR_BLOCK->"第${ruleErrorInfo.index+1}宫存在多个数字\"${ruleErrorInfo.number}\""

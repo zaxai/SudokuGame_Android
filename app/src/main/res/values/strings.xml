@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SudokuGame</string>
     <string name="app_full_name">Sudoku Game</string>
-    <string name="app_version">Version 1.0.0</string>
+    <string name="app_version">Version 1.0.1</string>
     <string name="splash_logo_description">Logo</string>
     <string name="main_title">数独</string>
     <string name="main_backup">标记起始</string>

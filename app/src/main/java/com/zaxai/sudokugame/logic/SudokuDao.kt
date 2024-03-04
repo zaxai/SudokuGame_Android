@@ -36,7 +36,11 @@ class SudokuDao(private val context: Context) {
     fun saveItemList(itemList: List<SudokuItem>){
         val itemNumList=ArrayList<String>()
         for (item in itemList){
-            itemNumList.add(item.number)
+            if(item.number.length==1) {
+                itemNumList.add(item.number)
+            }else{
+                itemNumList.add("")
+            }
         }
         sharedPreferences().edit {
             putString(sudokuItemKey, Gson().toJson(itemNumList))

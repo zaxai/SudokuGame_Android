@@ -49,14 +49,7 @@ class SudokuViewModel:ViewModel() {
 
     fun syncSudokuItemList(context: Context)=SudokuDao(context).syncItemList(sudoku.itemList)
 
-    fun startSudokuAutoCalc():Boolean{
-        sudoku.setDataFromItem()
-        val check=sudoku.ruleCheck()
-        if(check){
-            sudoku.startAutoCalc(_calcCount,_calcResult)
-        }
-        return check
-    }
+    fun startSudokuAutoCalc()=sudoku.startAutoCalc(_calcCount,_calcResult)
 
     fun endSudokuAutoCalc()=sudoku.setItemFromData()
 
@@ -102,8 +95,11 @@ class SudokuViewModel:ViewModel() {
 
     fun getSudokuLastRuleError()=sudoku.getLastRuleError()
 
+    fun getSudokuConfirmedCount()=sudoku.getConfirmedCount()
+
+    fun getSudokuUnconfirmedCount()=sudoku.getUnconfirmedCount()
+
     fun sudokuItemCandidate(block:(posNotifyList:List<Int>)->Unit){
-        sudoku.setDataFromItem()
         block(sudoku.itemCandidate())
     }
 }

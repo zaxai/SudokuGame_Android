@@ -125,6 +125,16 @@ data class Sudoku(val itemList: List<SudokuItem>){
         return -1
     }
 
+    private fun getCandidateNum(x:Int, y:Int, numList:ArrayList<Int>){
+        numList.clear()
+        val block=getBlock(x,y)
+        for (num in 1..9){
+            if(getNumCount(num,Direction.DIR_ROW,x)==0&&getNumCount(num,Direction.DIR_COLUMN,y)==0&&getNumCount(num,block)==0){
+                numList.add(num)
+            }
+        }
+    }
+
     private fun threeLinesModule(dir:Direction, startIndex:Int):Int{
         var count=0
         for (num in 1..9){
@@ -188,6 +198,69 @@ data class Sudoku(val itemList: List<SudokuItem>){
         return count
     }
 
+    private fun uniqueModule(dir:Direction,index: Int):Int{
+        var count=0
+        for (num in 1..9){
+            if(getNumCount(num,dir,index)==0){
+                val ptList=ArrayList<Point>()
+                for(i in 0 until SUDOKU_SIZE){
+                    when(dir){
+                        Direction.DIR_ROW->{
+                            if(dataList2[index][i]==0){
+                                val numList=ArrayList<Int>()
+                                getCandidateNum(index,i,numList)
+                                if(numList.contains(num)){
+                                    ptList.add(Point(index,i))
+                                }
+                            }
+                        }
+                        Direction.DIR_COLUMN->{
+                            if(dataList2[i][index]==0){
+                                val numList=ArrayList<Int>()
+                                getCandidateNum(i,index,numList)
+                                if(numList.contains(num)){
+                                    ptList.add(Point(i,index))
+                                }
+                            }
+                        }
+                    }
+                }
+                if(ptList.size==1){
+                    dataList2[ptList[0].x][ptList[0].y]=num
+                    count++
+                }
+            }
+        }
+        return count
+    }
+
+    private fun uniqueModule(block:Block):Int{
+        var count=0
+        for(num in 1..9){
+            if(getNumCount(num,block)==0){
+                val ptList=ArrayList<Point>()
+                for (i in 0 until 3){
+                    for (j in 0 until 3){
+                        val x=(block.index/3)*3+i
+                        val y=(block.index%3)*3+j
+                        if(dataList2[x][y]==0){
+                            val numList=ArrayList<Int>()
+                            getCandidateNum(x,y,numList)
+                            if(numList.contains(num)){
+                                ptList.add(Point(x,y))
+                            }
+                        }
+                    }
+                }
+                if(ptList.size==1){
+                    dataList2[ptList[0].x][ptList[0].y]=num
+                    count++
+                }
+            }
+        }
+        return count
+    }
+
     private fun threeLinesAlgorithm():Int{
         var count=0
         for (i in 0 until 3){
@@ -207,8 +280,18 @@ data class Sudoku(val itemList: List<SudokuItem>){
         return count
     }
 
+    private fun uniqueAlgorithm():Int{
+        var count=0
+        for (i in 0 until SUDOKU_SIZE){
+            count+=uniqueModule(Direction.DIR_ROW,i)
+            count+=uniqueModule(Direction.DIR_COLUMN,i)
+            count+=uniqueModule(getBlock(i))
+        }
+        return count
+    }
+
     private fun basicAlgorithm():Int{
-        return (threeLinesAlgorithm()+candidateAlgorithm())
+        return (threeLinesAlgorithm()+candidateAlgorithm()+uniqueAlgorithm())
     }
 
     private fun dataFreeze(){
@@ -317,16 +400,6 @@ data class Sudoku(val itemList: List<SudokuItem>){
         }
     }
 
-    fun getCandidateNum(x:Int,y:Int,numList:ArrayList<Int>){
-        numList.clear()
-        val block=getBlock(x,y)
-        for (num in 1..9){
-            if(getNumCount(num,Direction.DIR_ROW,x)==0&&getNumCount(num,Direction.DIR_COLUMN,y)==0&&getNumCount(num,block)==0){
-                numList.add(num)
-            }
-        }
-    }
-
     fun ruleCheck():Boolean{
         for(num in 1..9){
             for (i in 0 until SUDOKU_SIZE){
@@ -349,6 +422,10 @@ data class Sudoku(val itemList: List<SudokuItem>){
     }
 
     fun getLastRuleError()=ruleErrorInfo
+
+    fun getConfirmedCount()=total
+
+    fun getUnconfirmedCount()= SUDOKU_TOTAL_SIZE-total
 
     fun basicCalc(){
         while (total< SUDOKU_TOTAL_SIZE){
